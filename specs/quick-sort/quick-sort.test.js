@@ -13,12 +13,32 @@
 */
 
 function quickSort(nums) {
-  // code goes here
+  if (nums.length < 2) {
+    return nums;
+  }
+
+  const pivot = nums.pop();
+  const lessThanPivot = [];
+  const greaterThanPivot = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    const item = nums[i];
+    if (item <= pivot) {
+      lessThanPivot.push(item);
+    } else {
+      greaterThanPivot.push(item);
+    }
+  }
+
+  const sortedLessThanPivot = quickSort(lessThanPivot);
+  const sortedGreaterThanPivot = quickSort(greaterThanPivot);
+
+  return sortedLessThanPivot.concat([pivot], sortedGreaterThanPivot);
 }
 
 // unit tests
 // do not modify the below code
-test.skip("quickSort", function () {
+test("quickSort", function () {
   const input = [10, 8, 2, 1, 6, 3, 9, 4, 7, 5];
   const answer = quickSort(input);
 
